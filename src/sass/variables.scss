@@ -1,0 +1,111 @@
+
+$color-primary : rgb(0, 105, 235);
+$color-warn : rgb(255, 170, 0);
+$color-alert : rgb(212, 0, 120);
+$color-success : rgb(51, 171, 0);
+$color-violet : #7100c8;
+$color-light : #ddd;
+$color-dark : #222;
+$text-color : white;
+$ui-font-size:12px;
+$ui-font-color:whitesmoke;
+$ui-font-color-inactive:#aaa;
+$ui-control-background : #eee;
+$ui-container-background : #222;
+$ui-font-family : Avenir, Helvetica, Arial, sans-serif;
+$ui-color-disabled:#444;
+
+*, *:before, *:after {
+      box-sizing: border-box;
+    }
+
+html{
+      font-size: $ui-font-size;
+      overflow: hidden;
+}
+
+body{
+      margin: 0 auto;
+      font-family: $ui-font-family;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      color:  $ui-font-color;
+      
+  }
+  #app{
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      align-items: stretch;
+  }
+  .header{
+      background-color: $ui-container-background;
+      height: 26px;
+      width: 100%;
+      -webkit-app-region:drag;
+      color: $ui-font-color;
+  }
+  .title{
+      user-select: none;
+      margin: 0px;
+      padding: 0.5em;
+      display: inline;
+  }
+  .main-content{
+      width: 100vw;
+      display: flex;
+      align-items: stretch;
+      flex-direction: column;
+      flex-grow: 1;
+  }
+
+
+
+.flex{
+      display: flex;
+}
+.flex-row{
+      flex-direction: row;
+      padding: 0.2em;
+}
+//------------------------------------------------------------
+/* Themes section */
+.ui-container-theme-default{
+    $ui-container-background : #f0f0f0;
+    $ui-font-color:#333;
+    background-color: $ui-container-background;
+    color: $ui-font-color;
+}
+.ui-control-theme-default{
+    $ui-control-background : #fff;
+    $ui-font-color:#555;
+    background-color: $ui-control-background;
+    color : $ui-font-color;
+}
+
+.ui-item-theme-default{
+    $ui-control-background : #fff;
+    $ui-font-color:#555;
+    background-color: $ui-control-background;
+    color : $ui-font-color;
+    &:hover{
+        background-color: darken($ui-control-background,10%)
+    }
+}
+
+.ui-background-primary{background-color: $color-primary !important;}
+.ui-background-light{background-color: $color-light !important;}
+.ui-background-dark{background-color: $color-dark !important;}
+.ui-background-success{background-color: $color-success !important;}
+.ui-background-alert{background-color: $color-alert !important;}
+.ui-background-warn{background-color: $color-warn !important;}
+.ui-background-violet{background-color: $color-violet !important;}
+
+.ui-text-primary{color: $color-primary !important;}
+.ui-text-light{color: $color-light !important;}
+.ui-text-dark{color: $color-dark !important;}
+.ui-text-success{color: $color-success !important;}
+.ui-text-alert{color: $color-alert !important;}
+.ui-text-warn{color: $color-warn !important;}
+.ui-text-violet{color: $color-violet !important;}
