@@ -1,11 +1,13 @@
 <template>
-    <div class="ui-menu-control">
+    <div :class="classM">
         <slot name="activator" v-bind:on="on"></slot>
-        <div :class="classT" v-show="isActive" :style="styles">
-            <div class="ui-menu-scroll">
+        <transition name="fade">
+        <div :class="classT" v-show="isActive" :style="styles" ref="item-container">
+            <div :class="classS">
                 <slot></slot>
             </div>
         </div>
+        </transition>
   </div>
 </template>
 
@@ -39,7 +41,9 @@ export default {
     },
     data (){
         return {
-
+            activated : false,
+            menuHeight : 0,
+            direction : "",
         }
     },
     methods:{
@@ -50,18 +54,22 @@ export default {
             return   xpos
         },
         getTopPos(){
-            return  this.positionY + this.activatorHeight + "px"
+            let topPos = this.direction == "top" ? (this.positionY - this.menuHeight) : this.positionY + this.activatorHeight;
+            return topPos + "px"
 
         },
         getMaxWidth(){
             return this.maxWidth == 0 ? this.activatorWidth + "px" : this.maxWidth + "px"
         },
         on(){
+            
             this.activate(!this.isActive)
+            this.activated = true
         },
         activate(val){
             this.$emit("input",val)    
             this.isActive = val;
+            this.activated = val;
 
             if (val == true){
                 this.onWindowResize()
@@ -81,6 +89,19 @@ export default {
         value : function(nv){
             this.onWindowResize()
             this.activate(nv)
+        },
+        activated : function(){
+            this.$nextTick( () => {
+                this.menuHeight = this.$refs["item-container"].clientHeight
+                let totalHeight = (this.positionY + this.activatorHeight + this.menuHeight);
+
+                if (totalHeight > document.documentElement.clientHeight){
+                    this.direction = "top"
+                }else{
+                    this.direction = ""
+                }
+                
+            } ) 
         }
     },
     computed:{
@@ -92,7 +113,14 @@ export default {
             }
         },
         classT(){
-            return [this.getTheme(""),"ui-menu-content"]
+            //this.getTheme("")
+            return ["ui-menu-content","ui-menu-shadow"]
+        },
+        classM(){
+            return [this.getTheme(""),"ui-menu-control"]
+        },
+        classS(){
+            return [this.getTheme(""), this.isActive == true? "ui-menu-scroll":""]
         }
     }
 }
@@ -101,23 +129,35 @@ export default {
 <style lang="scss" scoped>
 @import "../../../sass/variables.scss";
 
+.fade-enter{
+    opacity: 0;
+}
+.fade-enter-active{
+  transition: opacity .3s;
+}
+
 .ui-menu-control{
     outline: none;
+}
+.ui-menu-control > button{
+    z-index: 199 !important;
 }
 
 .ui-menu-scroll{
     overflow: hidden;
     overflow-y: auto;
     outline: none;
-    
 }
 .ui-menu-content{
-    box-shadow: black 3px 3px 3px;
     font-size: $ui-font-size;
     position: absolute;
     width:300px;
     left:0px;
     z-index: 299;
-    
+}
+
+.ui-menu-shadow{
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: $color-gray 0px 0px 5px;
 }
 </style>

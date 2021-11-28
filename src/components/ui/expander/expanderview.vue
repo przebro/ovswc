@@ -6,8 +6,36 @@
 
 <script>
 export default {
-  name :"UiExpanderView"
-
+  name :"UiExpanderView",
+  props:{
+    select :{
+      default : null
+    }
+  },
+  data(){
+    return {
+      selectedItm : 0
+    }
+  },
+  computed:{
+    selected(){
+      return this.selectedItm
+    }
+  },
+  provide(){
+      return {
+        selectedItem  : () => this.selectedItm,
+        onselect : this.onSelectChange
+      }
+  },
+  methods :{
+      onSelectChange(val){
+        this.selectedItm = val;
+      }
+  },
+  mounted(){
+    if (this.select != null) this.selectedItm = this.select;
+  }
 }
 </script>
 

@@ -1,5 +1,4 @@
 <template>
-
   <div class="ui-list-view" >
       <div :class="classT" ref="content-view" @wheel="onScroll($event)">
           <div :class="classP" >
@@ -29,7 +28,7 @@ export default {
     },
     data(){
         return {
-            listViewItems : this.items,
+            listViewItems : [],
             rows : 0,
             currentRow : 0,
             currentPos : 0,
@@ -38,6 +37,15 @@ export default {
             cursorPos :{x: 0,y:0},
             isHandlerDragged : false,
             sbAreaHeight : 0,
+        }
+    },
+    watch:{
+        items :function(){
+            //let  n = parseInt(this.currentRow) + parseInt(this.rows);
+            //let tmp = nval.slice(this.currentRow,n)
+            //console.log(tmp)
+            this.updateListVieItems()
+            
         }
     },
     methods:{
@@ -147,7 +155,6 @@ export default {
     width: 21px;
 }
 .ui-scrollbar-handle{
-    //background-color: rgb(164, 164, 164);
     padding:0 5px;
     margin: 0 2px;
     position:relative;

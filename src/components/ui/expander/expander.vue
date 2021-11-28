@@ -5,7 +5,7 @@
           {{header}}
           <div :class="classD"></div>
       </div>
-      <div v-if="isVisible==true" class="ui-expander-content">
+      <div v-if="visible" class="ui-expander-content">
       <slot></slot>
       </div>
   </div>
@@ -23,8 +23,13 @@ export default {
             type : String,
             default : ""
         },
-        groupKey : Number,
-        group : Array
+        groupKey :{
+            type : Number
+        }
+    },
+    inject:{
+        selectedItem : {default : null},
+        onselect : {default :null}
     },
     data(){
         return{
@@ -39,31 +44,36 @@ export default {
             }else{
                 setTimeout(()=>{ this.isVisible = false },530)
             }
-        },
-        group : function(nval){
-            console.log(nval[0])
-            if (nval[0] != this.groupKey )this.expanded = false;
         }
     },
     computed:{
         ClassT(){
-            let theme = [ "ui-expander",this.expanded == true ?"ui-expander-active":"",this.flat == true ? "ui-expander-flat":""]
+            let theme = [ "ui-expander",this.visible == true ?"ui-expander-active":"",this.flat == true ? "ui-expander-flat":""]
             return theme
         },
         classD(){
             return ["ui-expander-decorator",this.getBackgroundByName(this.color == ""?"primary":this.color)]
+        },
+        visible(){
+            if (this.selectedItem != null){
+                return this.selectedItem() == this.groupKey
+            }
+            return this.expanded;
         }
     },
     methods : {
-        expand : function(){
+        expand(){
             this.expanded = !this.expanded
+
+            if (this.onselect!=null) this.onselect(this.groupKey);
+
             if (this.groupKey != undefined && this.expanded == true){
                 this.$emit("expand",this.groupKey)
             }
         }
     },
     mounted(){
-        this.$emit("expand",this.group[0])
+        //Vue.watch( () => this.selectedItem,(nval)=>{ console.log("watching:"+nval) } )
     }
 
 }

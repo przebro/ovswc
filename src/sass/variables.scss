@@ -4,6 +4,8 @@ $color-warn : rgb(255, 170, 0);
 $color-alert : rgb(212, 0, 120);
 $color-success : rgb(51, 171, 0);
 $color-violet : #7100c8;
+$color-gray : #7f7f7f;
+$color-red : #ff0000;
 $color-light : #ddd;
 $color-dark : #222;
 $text-color : white;
@@ -101,6 +103,8 @@ body{
 .ui-background-alert{background-color: $color-alert !important;}
 .ui-background-warn{background-color: $color-warn !important;}
 .ui-background-violet{background-color: $color-violet !important;}
+.ui-background-gray{background-color: $color-gray !important;}
+.ui-background-red{background-color: $color-red !important;}
 
 .ui-text-primary{color: $color-primary !important;}
 .ui-text-light{color: $color-light !important;}

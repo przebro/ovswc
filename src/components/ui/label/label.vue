@@ -11,11 +11,12 @@ export default {
     props:{
         text : String,
         width : Number,
-        right : Boolean
+        right : Boolean,
+        condensed : Boolean
     },
     computed:{
         classT(){
-            let cls = [this.getTheme(""),"ui-label"]
+            let cls = [this.getTheme(""),"ui-label", this.condensed == true ? "ui-label-condensed":"ui-label-normal" ]
             cls
             return cls
         },
@@ -37,7 +38,14 @@ export default {
 .ui-label{
     background-color: transparent;
     display: flex;
+    
+}
+.ui-label-normal{
     padding: 0.5em;
 }
+.ui-label-condensed{
+    padding: 0.1em;
+}
+
 
 </style>
