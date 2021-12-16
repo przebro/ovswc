@@ -47,7 +47,6 @@ export default {
         this.autoRefresh = val
       },
       onTaskLog(data){
-            console.log(data.output)
             this.taskLog = data.output
             this.taskDialog = true
       },
@@ -58,10 +57,17 @@ export default {
             clearInterval(this.interval)
       },
       onTaskListComplete(data){
+            if (data === "") return;
+
             let items = new Array()
-            for(const e of data){
+            if (Array.isArray(data)) {
+              for(const e of data) {
                 items.push(e.result) 
+              }
+            }else{
+              items.push(data.result)
             }
+            
             this.dataItems = items
         },
       onRefreshResults(){

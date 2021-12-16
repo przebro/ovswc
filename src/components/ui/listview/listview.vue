@@ -41,9 +41,6 @@ export default {
     },
     watch:{
         items :function(){
-            //let  n = parseInt(this.currentRow) + parseInt(this.rows);
-            //let tmp = nval.slice(this.currentRow,n)
-            //console.log(tmp)
             this.updateListVieItems()
             
         }
@@ -81,7 +78,7 @@ export default {
                 }
             },
             onScroll(e){
-
+                if (this.countElements == 0){return}
                 if ( (this.currentPos + e.deltaY) < 0 || (this.currentPos + e.deltaY) > this.sbAreaHeight){ return;}
 
                 this.currentPos +=  e.deltaY
@@ -99,6 +96,7 @@ export default {
 
             },
             updateListVieItems(){
+                if (this.items == null) return ;
                 let  n = parseInt(this.currentRow) + parseInt(this.rows);
                 
                 this.listViewItems = this.items.filter( (e,idx) =>{
@@ -119,6 +117,13 @@ export default {
         },
         styleH(){
             return "height:"+this.srcollSz+"px;top:"+parseInt(this.currentPos)+"px;"
+        },
+        countElements(){
+            if (this.listViewItems == null || this.listViewItems.length == 0){
+                return 0
+            }
+
+            return this.listViewItems.length
         }
     },
     mounted(){

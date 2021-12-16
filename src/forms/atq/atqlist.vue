@@ -70,7 +70,6 @@ export default {
             return cl
         },
         selectRow(itemID){
-            console.log("selected")
             this.$emit('selected',itemID)
         },
         onTaskAction(action,taskID){

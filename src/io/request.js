@@ -55,11 +55,9 @@ function ServiceProvider(provider) {
             chnl.endpoint = channel.endpoint.replaceAll( "{"+val+"}", data[val] )
         } )
 
-        console.log(chnl.endpoint)
-        console.log(data)
 
         $this.provider.Send(chnl,data).then ( result =>{
-            console.log(result.status)
+            
             if (typeof(result.data) === "string"){
                 let chunked = []
                 result.data.split('\n').forEach( vl =>{
